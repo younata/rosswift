@@ -1,4 +1,4 @@
-protocol MessageFormatter {
+public protocol MessageFormatter {
     func string(message: Message) -> String
 }
 
@@ -7,7 +7,7 @@ struct StructMessageFormatter: MessageFormatter {
         let fields = message.fields.map { (field: MessageField) -> String in
             return "    var \(field.name): \(self.format(rosField: field.type))"
         }.joined(separator: "\n")
-        return "struct \(message.name): RosMessage {\n\(fields)\n}"
+        return "struct \(message.name): RosMessage {\n\(fields)\n}\n"
     }
 
     private func format(rosField: MessageType) -> String {

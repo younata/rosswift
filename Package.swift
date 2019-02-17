@@ -20,7 +20,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/quick/quick.git", from: "1.3.3"),
         .package(url: "https://github.com/quick/nimble.git", from: "7.3.3"),
-        .package(url: "https://github.com/apple/swift-package-manager.git", from: "0.1.0"),
+        .package(url: "https://github.com/apple/swift-package-manager.git", from: "0.3.0"),
     ],
     targets: [
         .target(

@@ -47,7 +47,7 @@ struct MyMessage: RosMessage {
     var m: UInt32
     var n: Int32
 }
-""".trimmingCharacters(in: .whitespacesAndNewlines)
+""".trimmingCharacters(in: .whitespacesAndNewlines).appending("\n")
                 expect(subject.string(message: message)).to(equal(expectedStruct))
             }
 
@@ -85,7 +85,7 @@ struct MyMessage: RosMessage {
     var m: [UInt32]
     var n: [Int32]
 }
-""".trimmingCharacters(in: .whitespacesAndNewlines)
+""".trimmingCharacters(in: .whitespacesAndNewlines).appending("\n")
                 expect(subject.string(message: message)).to(equal(expectedStruct))
             }
         }

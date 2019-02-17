@@ -2,6 +2,13 @@ import MessageGeneratorKit
 import Foundation
 import Utility
 
+extension FileHandle : TextOutputStream {
+    public func write(_ string: String) {
+        guard let data = string.data(using: .utf8) else { return }
+        self.write(data)
+    }
+}
+
 func main() -> Int32 {
     // The first argument is always the executable, drop it
     let arguments = Array(ProcessInfo.processInfo.arguments.dropFirst())
@@ -24,24 +31,29 @@ func main() -> Int32 {
         completion: .filename
     )
 
+    var standardError = FileHandle.standardError
+
     do {
         let parsedArguments = try parser.parse(arguments)
 
         guard let messagePath = parsedArguments.get(path) else {
-            print("Error: No message given to parse")
+            print("Error: No message given to parse", to: &standardError)
             return 1
         }
 
         let rosEnvironment = parsedArguments.get(rosEnv)
 
-        print("Use environment if given and read message and convert it to non-message")
+        print(try generate(
+            messageLocation: messagePath.path.asString,
+            rosEnvironment: rosEnvironment?.path.asString
+        ))
     }
     catch let error as ArgumentParserError {
         print(error.description)
         return 1
     }
     catch let error {
-        print(error.localizedDescription)
+        print(error.localizedDescription, to: &standardError)
         return 1
     }
     return 0

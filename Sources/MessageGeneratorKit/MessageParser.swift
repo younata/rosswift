@@ -4,8 +4,12 @@ public protocol MessageParser {
     func parse(name: String, contents: String) throws -> Message
 }
 
-struct RosMessageParser: MessageParser {
+final class RosMessageParser: MessageParser {
     let messageMapper: MessageMapper
+
+    init(messageMapper: MessageMapper) {
+        self.messageMapper = messageMapper
+    }
 
     func parse(name: String, contents: String) throws -> Message {
         guard name.rangeOfCharacter(from: .whitespacesAndNewlines, options: [], range: nil) == nil else {
