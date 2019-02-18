@@ -1,18 +1,26 @@
 import XCTest
-import Quick
 
-import RosTests
+@testable import RosTests
 @testable import MessageGeneratorKitTests
 
-var tests = [XCTestCaseEntry]()
-tests += RosTests.allTests()
-XCTMain(tests)
+let messageGeneratorTests: [QuickSpec.self] = [
+    StructMessageFormatterSpec.self, // MessageFormatterSpec
 
-QCKMain([
-    RosMessageParserSpec.self,
+    DictionaryMessageMapperSpec.self, // MessageMapperSpec
+    ComposedMessageMapperSpec.self, // MessageMapperSpec
+    DynamicMessageMapperSpec.self, // MessageMapperSpec
 
-    DictionaryMessageMapperSpec.self,
-    ComposedMessageMapperSpec.self,
+    RosMessageParserSpec.self, // MessageParserSpec
 
-    StructMessageFormatterSpec.self
-])
+    ProcessShellSpec.self, // ShellSpec
+
+    RosOracleSpec.self, // OracleSpec
+    FileManagerDirectoryAnalyzerSpec.self // OracleSpec
+]
+
+let rosTests: [QuickSpec.self] = [
+    RosMessageDecoderSpec.self, // RosMessageDecoderSpec
+    RosNodeSpec.self // NodeSpec
+]
+
+QCKMain(messageGeneratorTests + rosTests)

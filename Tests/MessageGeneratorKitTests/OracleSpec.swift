@@ -4,7 +4,7 @@ import Foundation
 
 @testable import MessageGeneratorKit
 
-final class OracleSpec: QuickSpec {
+final class RosOracleSpec: QuickSpec {
     override func spec() {
         var subject: RosOracle!
         var directoryAnalyzer: FakeDirectoryAnalyzer!
